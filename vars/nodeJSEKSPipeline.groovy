@@ -7,7 +7,7 @@ def call(Map configMap){
         }
     }
     tools {
-        nodejs 'Node20'
+        nodejs 'NodeJS-20'
     }
     environment {
         PROJECT = "roboshop"
