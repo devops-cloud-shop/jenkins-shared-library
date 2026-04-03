@@ -50,7 +50,7 @@ def call(Map configMap){
             steps{
                 script{
                     sh """
-                        echo "test"
+                        echo "unit test"
                     """
                 }
             }
