@@ -6,11 +6,14 @@ def call(Map configMap){
             label 'AGENT-1'
         }
     }
+    tools {
+        nodejs 'Node20'
+    }
     environment {
         PROJECT = "roboshop"
         COMPONENT = "catalogue"
         ENVIRONMENT = "dev"
-        APP_VERSION = ""
+        APP_VERSION = "1.0.0"
         ACC_ID = "600442391603"
         REGION = "us-east-1"
     }
@@ -47,7 +50,7 @@ def call(Map configMap){
             steps{
                 script{
                     sh """
-                        npm install
+                        echo "test"
                     """
                 }
             }
