@@ -6,9 +6,9 @@ def call(Map configMap){
             label 'AGENT-1'
         }
     }
-    tools {
-        nodejs 'NodeJS-20'
-    }
+    // tools {
+    //     nodejs 'NodeJS-20'
+    // }
     environment {
         PROJECT = configMap.get("PROJECT")
         COMPONENT =  configMap.get("COMPONENT")
