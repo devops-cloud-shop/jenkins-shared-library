@@ -6,9 +6,7 @@ def call(Map configMap){
             label 'AGENT-1'
         }
     }
-    // tools {
-    //     nodejs 'NodeJS-20'
-    // }
+    
     environment {
         PROJECT = configMap.get("PROJECT")
         COMPONENT =  configMap.get("COMPONENT")
@@ -21,10 +19,7 @@ def call(Map configMap){
         timeout(time: 30, unit: 'MINUTES') 
         disableConcurrentBuilds()
     }
-    // parameters {
-    //     string(name: 'App_Version', description: 'Which app version you want to deploy')
-    //     choice(name: 'deploy_to', choices: ['dev', 'qa', 'prod'], description: 'Pick something')
-    // }
+    
     //Build section//
     stages{
         stage('Read Version'){
@@ -160,8 +155,23 @@ def call(Map configMap){
                         """
                     }
                 }
-            } */ 
-    }  
+            } */
+
+        stage('TRIGGER Dev Deploy'){
+            steps {
+                script {
+                    build job: "../${COMPONENT}-deploy",
+                        wait: false, // Wait for completion
+                        propagate: false // Propagate status
+                        parameters: [
+                        string(name: 'APP_VERSION', value: "${APP_VERSION}"),
+                        string(name: 'deploy_to', value: "dev")
+                    ]
+                }
+            }
+        } 
+    }
+
 //this is post build section//
         post{
             always{
