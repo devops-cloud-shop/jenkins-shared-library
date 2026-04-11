@@ -79,7 +79,7 @@ def call (configMap){
                 }
                 environment {
                     GITHUB_OWNER = 'devops-cloud-shop'
-                    GITHUB_REPO  = 'catalogue'
+                    GITHUB_REPO  = 'shipping'
                     GITHUB_API   = 'https://api.github.com'
                     GITHUB_TOKEN = credentials('GITHUB_TOKEN')
                 }
