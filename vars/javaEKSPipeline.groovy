@@ -10,7 +10,7 @@ def call (configMap){
             PROJECT = configMap.get("PROJECT")
             COMPONENT =  configMap.get("COMPONENT")
             ENVIRONMENT = "dev"
-            APP_VERSION = ""
+            APP_VERSION = "1.0.0"
             ACC_ID = "600442391603"
             REGION = "us-east-1"
     }
