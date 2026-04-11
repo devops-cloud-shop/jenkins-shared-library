@@ -9,7 +9,7 @@ def call (Map configMap){
         }
         environment {
 
-            appVersion = "1.0.0"
+            APP_VERSION = "1.0.0"
             ACC_ID = "600442391603"
             PROJECT = configMap.get("PROJECT")
             COMPONENT = configMap.get("COMPONENT")
@@ -24,7 +24,7 @@ def call (Map configMap){
                 steps {
                     script{
                         appVersion = readFile(file: 'version')
-                        echo "app version: ${appVersion}"
+                        echo "app version: ${APP_VERSION}"
                     }
                 }
             }
@@ -127,9 +127,9 @@ def call (Map configMap){
                         withAWS(region:'us-east-1',credentials:'aws-creds') {
                             sh """
                                 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com
-                                docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion} .
+                                docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${APP_VERSION} .
                                 docker images
-                                docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
+                                docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${APP_VERSION}
                             """
                         }
                     }
@@ -159,8 +159,8 @@ def call (Map configMap){
                             wait: false, // Wait for completion
                             propagate: false, // Propagate status
                             parameters: [
-                                string(name: 'appVersion', value: "${appVersion}"),
-                                string(name: 'deploy_to', value: "dev")
+                                string(name: 'APP_VERSION', value: "${APP_VERSION}"),
+                                string(name: 'DEPLOY_TO', value: "dev")
                             ]
                     }
                 }
