@@ -26,6 +26,9 @@ def call ( Map configMap ){
     stages {
         
         stage('Deploy') {
+            when{
+                expression { DEPLOY_TO == "dev" || DEPLOY_TO == "qa" || DEPLOY_TO == "uat" }
+            }
             steps {
                 script{
                     withAWS(region:'us-east-1',credentials:'aws-creds') {
@@ -39,6 +42,62 @@ def call ( Map configMap ){
                     }
                 }
             }
+        }
+
+        stage('Funtional Testing'){
+            when{
+                expression { DEPLOY_TO == "dev" }
+            }
+            steps{
+                script{
+                    sh """
+                    echo "Functional Tesing in DEV Environment"
+                    """            
+                }
+            }
+            
+        }
+
+        stage('Integration Testing'){
+            when{
+                expression { DEPLOY_TO == "qa" }
+            }
+            steps{
+                script{
+                    sh """
+                    echo "Integration Tesing in QA Environment"
+                    """            
+                }
+            }
+            
+        }
+
+        stage('E2E Testing'){
+            when{
+                expression { DEPLOY_TO == "uat" }
+            }
+            steps{
+                script{
+                    sh """
+                    echo "End to End Tesing in UAT Environment"
+                    """            
+                }
+            }
+            
+        }
+
+        stage('PROD Process'){
+            when{
+                expression { DEPLOY_TO == "PROD" }
+            }
+            steps{
+                script{
+                    sh """
+                    echo "End to End Tesing in UAT Environment"
+                    """            
+                }
+            }
+            
         }
         
     }
